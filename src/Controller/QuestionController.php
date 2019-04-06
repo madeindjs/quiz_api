@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Repository\QuestionRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class QuestionController
 {
-    public function index()
+    public function index(QuestionRepository $questionRepository)
     {
-        $number = random_int(0, 100);
-
-        return new JsonResponse(['number' => $number]);
+        $response = array_map(function($question){
+            /** @var \App\Entity\Question $question */
+            return $question->toArray();
+        }, $questionRepository->findAll());
+        
+        return new JsonResponse($response);
     }
 }

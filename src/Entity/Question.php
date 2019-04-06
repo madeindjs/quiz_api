@@ -54,4 +54,12 @@ class Question
 
         return $this;
     }
+    
+    public function toArray() : array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }
